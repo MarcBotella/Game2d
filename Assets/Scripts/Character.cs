@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Cinemachine;
 
 public class Character : MonoBehaviour
 {
@@ -31,13 +32,16 @@ public class Character : MonoBehaviour
         grounded = Physics2D.Linecast(transform.position,
         groundCheck.position,
         LayerMask.GetMask("Ground"));
-        if (grounded && Input.GetButtonDown("Jump"))
+        if (Input.GetKey("space") &&  grounded)
             rigidbody2d.AddForce(Vector2.up * jumpMovement);
             print("Salto");
+
+
         if (grounded)
             animator.SetTrigger("Grounded");
         else
             animator.SetTrigger("Jump");
+
         Speed = lateralMovement * Input.GetAxis("Horizontal");
         transform.Translate(Vector2.right * Speed * Time.deltaTime);
         animator.SetFloat("Speed", Mathf.Abs(Speed));
@@ -45,5 +49,17 @@ public class Character : MonoBehaviour
             transform.localScale = new Vector3(-1, 1, 1);
         else
             transform.localScale = new Vector3(1, 1, 1);
+    }
+
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        // Previous code… Add the following to the end
+        if (other.CompareTag("ZOOM"))
+            GameObject.Find("MainVirtual").GetComponent<CinemachineVirtualCamera>().enabled = false;
+    }
+    void OnTriggerExit2D(Collider2D other)
+    {
+        if (other.CompareTag("ZOOM"))
+            GameObject.Find("MainVirtual").GetComponent<CinemachineVirtualCamera>().enabled = true;
     }
 }
