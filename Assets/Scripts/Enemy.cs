@@ -1,21 +1,25 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-    public Vector3 destination;
-    public float time;
+    public int damage = 10;
+    public float attackRadius = 1.0f;
+    public float attackRate = 1.0f;
+    private float nextAttackTime = 0.0f;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        iTween.MoveTo (gameObject, iTween.Hash ("position", destination, "time", time, "easetype", iTween.EaseType.easeInOutSine, "looptype", iTween.LoopType.pingPong));
-    }
+    public Animator animator;
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.right, attackRadius);
+        if (hit.collider != null && hit.collider.CompareTag("Player"))
+        {
+            if (Time.time >= nextAttackTime)
+            {
+                nextAttackTime = Time.time + attackRate;
+                hit.collider.GetComponent<PlayerHealth>().TakeDamage(damage);
+                animator.SetTrigger("atack1");
+            }
+        }
     }
 }
