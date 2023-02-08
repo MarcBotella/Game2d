@@ -32,6 +32,12 @@ public class HeroKnight : MonoBehaviour {
     private float               m_rollDuration = 8.0f / 14.0f;
     private float               m_rollCurrentTime;
 
+    public int attackDamage = 5;
+    public float attackRadius = 1f;
+    public float attackDelay = 1f;
+    public LayerMask playerLayer;
+    private float nextAttackTime;
+
     float movementButton = 0.0f;
     public TextMeshProUGUI TextMeshProUGUI; 
     public Image cartel;
@@ -118,8 +124,16 @@ public class HeroKnight : MonoBehaviour {
             if (m_timeSinceAttack > 1.0f)
                 m_currentAttack = 1;
 
-            // Call one of three attack animations "Attack1", "Attack2", "Attack3"
             m_animator.SetTrigger("Attack" + m_currentAttack);
+            
+            
+            Collider2D[] hitPlayers = Physics2D.OverlapCircleAll(transform.position, attackRadius, playerLayer);
+            foreach (Collider2D player in hitPlayers)
+            {
+                player.GetComponent<Enemy>().TakeDamage(attackDamage);
+            }
+            
+              
 
             // Reset timer
             m_timeSinceAttack = 0.0f;
@@ -203,18 +217,14 @@ public class HeroKnight : MonoBehaviour {
         if (other.CompareTag("Cartel")){
             print("Cartel");
             cartel.gameObject.SetActive(true);
+            Destroy(cartel, 13.0f);
         }
     }
 
     void OnTriggerExit2D(Collider2D other)
     {
-        if (other.CompareTag("ZOOM")){
+        if (other.CompareTag("ZOOM"))
             GameObject.Find("MainVirtual").GetComponent<CinemachineVirtualCamera>().enabled = true;
-        }
-        if (other.CompareTag("Cartel")){
-            print("Cartel");
-            cartel.gameObject.SetActive(false);
-        }
         
     }
 
@@ -245,5 +255,11 @@ public class HeroKnight : MonoBehaviour {
     public void Move(float amount)
     {
         movementButton = amount;
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, attackRadius);
     }
 }
