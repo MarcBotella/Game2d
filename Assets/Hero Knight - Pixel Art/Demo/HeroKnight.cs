@@ -203,14 +203,18 @@ public class HeroKnight : MonoBehaviour {
         if (other.CompareTag("Cartel")){
             print("Cartel");
             cartel.gameObject.SetActive(true);
-            Destroy(cartel, 13.0f);
         }
     }
 
     void OnTriggerExit2D(Collider2D other)
     {
-        if (other.CompareTag("ZOOM"))
+        if (other.CompareTag("ZOOM")){
             GameObject.Find("MainVirtual").GetComponent<CinemachineVirtualCamera>().enabled = true;
+        }
+        if (other.CompareTag("Cartel")){
+            print("Cartel");
+            cartel.gameObject.SetActive(false);
+        }
         
     }
 
