@@ -5,6 +5,11 @@ TagManager:
   serializedVersion: 2
   tags:
   - ZOOM
+  - NextLevel
+  - Cofre
+  - key
+  - limit
+  - Cartel
   layers:
   - Default
   - TransparentFX

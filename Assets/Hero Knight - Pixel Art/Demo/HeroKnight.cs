@@ -1,19 +1,23 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 using Cinemachine;
+using UnityEngine.SceneManagement;
+using TMPro;
+using UnityEditor;
+using UnityEngine.UI;
 
 public class HeroKnight : MonoBehaviour {
 
     [SerializeField] float      m_speed = 4.0f;
     [SerializeField] float      m_jumpForce = 7.5f;
     [SerializeField] float      m_rollForce = 6.0f;
-    [SerializeField] bool       m_noBlood = false;
     [SerializeField] GameObject m_slideDust;
 
     private Animator            m_animator;
     private Rigidbody2D         m_body2d;
-    public Transform groundCheck;
-    private Sensor_HeroKnight   m_groundSensor;
+    public Animator animatorCofre;
+    public Sensor_HeroKnight   m_groundSensor;
     private Sensor_HeroKnight   m_wallSensorR1;
     private Sensor_HeroKnight   m_wallSensorR2;
     private Sensor_HeroKnight   m_wallSensorL1;
@@ -29,13 +33,15 @@ public class HeroKnight : MonoBehaviour {
     private float               m_rollCurrentTime;
 
     float movementButton = 0.0f;
-
+    public TextMeshProUGUI TextMeshProUGUI; 
+    public Image cartel;
 
     // Use this for initialization
     void Start ()
     {
         m_animator = GetComponent<Animator>();
         m_body2d = GetComponent<Rigidbody2D>();
+        cartel.gameObject.SetActive(false);
         m_groundSensor = transform.Find("GroundSensor").GetComponent<Sensor_HeroKnight>();
         m_wallSensorR1 = transform.Find("WallSensor_R1").GetComponent<Sensor_HeroKnight>();
         m_wallSensorR2 = transform.Find("WallSensor_R2").GetComponent<Sensor_HeroKnight>();
@@ -167,13 +173,45 @@ public class HeroKnight : MonoBehaviour {
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("ZOOM"))
+        if (other.CompareTag("ZOOM")){
             GameObject.Find("MainVirtual").GetComponent<CinemachineVirtualCamera>().enabled = false;
+        }
+
+        if (other.CompareTag("NextLevel") && GameManager.key == 1){
+            print("NextLevel");
+            SceneManager.LoadScene("nextLevel");
+        }
+
+        if (other.gameObject.tag == "Cofre" && GameManager.key == 1)
+        {
+            animatorCofre.Play("Open");    
+            animatorCofre.SetBool("Open",true);
+        }   
+
+        if (other.CompareTag("key")){
+            Destroy(GameObject.Find("key"));
+            GameManager.key = 1;
+
+            TextMeshProUGUI.text = "1/1";
+        }
+        
+        if (other.CompareTag("limit")){
+            print("NextLevel");
+            SceneManager.LoadScene("FirstLevel");
+        }
+
+        if (other.CompareTag("Cartel")){
+            print("Cartel");
+            cartel.gameObject.SetActive(true);
+            Destroy(cartel, 13.0f);
+        }
     }
+
     void OnTriggerExit2D(Collider2D other)
     {
         if (other.CompareTag("ZOOM"))
             GameObject.Find("MainVirtual").GetComponent<CinemachineVirtualCamera>().enabled = true;
+        
     }
 
     // Animation Events
