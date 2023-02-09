@@ -60,16 +60,6 @@ public class HeroKnight : MonoBehaviour {
     // Update is called once per frame
     void Update ()
     {
-        if(!hafinalizado){
-            textoJadis.gameObject.SetActive(false);
-        }else{
-            textoJadis.gameObject.SetActive(true);
-            GameObject jadis = GameObject.Find("Jadis");
-            Destroy(textoJadis, 3.0f);
-            Destroy(jadis,4.0f);
-
-           // SceneManager.LoadScene("escenaFinal");
-        }
         // Increase timer that controls attack combo
         m_timeSinceAttack += Time.deltaTime;
 
@@ -148,24 +138,6 @@ public class HeroKnight : MonoBehaviour {
 
             // Reset timer
             m_timeSinceAttack = 0.0f;
-        }
-
-        // Block
-        else if (Input.GetMouseButtonDown(1) && !m_rolling)
-        {
-            m_animator.SetTrigger("Block");
-            m_animator.SetBool("IdleBlock", true);
-        }
-
-        else if (Input.GetMouseButtonUp(1))
-            m_animator.SetBool("IdleBlock", false);
-
-        // Roll
-        else if (Input.GetKeyDown("left shift") && !m_rolling && !m_isWallSliding)
-        {
-            m_rolling = true;
-            m_animator.SetTrigger("Roll");
-            m_body2d.velocity = new Vector2(m_facingDirection * m_rollForce, m_body2d.velocity.y);
         }
 
         //Jump
