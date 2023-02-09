@@ -43,6 +43,7 @@ public class HeroKnight : MonoBehaviour {
     public Image cartel;
     public Image textoJadis;
     bool hafinalizado = false;
+    bool haGanado = false;
 
     // Use this for initialization
     void Start ()
@@ -60,16 +61,6 @@ public class HeroKnight : MonoBehaviour {
     // Update is called once per frame
     void Update ()
     {
-        if(!hafinalizado){
-            textoJadis.gameObject.SetActive(false);
-        }else{
-            textoJadis.gameObject.SetActive(true);
-            GameObject jadis = GameObject.Find("Jadis");
-            Destroy(textoJadis, 3.0f);
-            Destroy(jadis,4.0f);
-
-           // SceneManager.LoadScene("escenaFinal");
-        }
         // Increase timer that controls attack combo
         m_timeSinceAttack += Time.deltaTime;
 
