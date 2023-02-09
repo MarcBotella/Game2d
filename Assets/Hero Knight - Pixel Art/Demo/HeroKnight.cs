@@ -41,6 +41,8 @@ public class HeroKnight : MonoBehaviour {
     float movementButton = 0.0f;
     public TextMeshProUGUI TextMeshProUGUI; 
     public Image cartel;
+    public Image textoJadis;
+    bool hafinalizado = false;
 
     // Use this for initialization
     void Start ()
@@ -58,6 +60,16 @@ public class HeroKnight : MonoBehaviour {
     // Update is called once per frame
     void Update ()
     {
+        if(!hafinalizado){
+            textoJadis.gameObject.SetActive(false);
+        }else{
+            textoJadis.gameObject.SetActive(true);
+            GameObject jadis = GameObject.Find("Jadis");
+            Destroy(textoJadis, 3.0f);
+            Destroy(jadis,4.0f);
+
+           // SceneManager.LoadScene("escenaFinal");
+        }
         // Increase timer that controls attack combo
         m_timeSinceAttack += Time.deltaTime;
 
@@ -219,11 +231,16 @@ public class HeroKnight : MonoBehaviour {
             cartel.gameObject.SetActive(true);
         }
 
-
          if (other.CompareTag("Castillo")){
             print("Castillo");
             SceneManager.LoadScene("BossFinal");
         }
+
+        if (other.CompareTag("TextoJadis")){
+            print("TextoJadis");
+            hafinalizado = true;
+        }
+
     }
 
     void OnTriggerExit2D(Collider2D other)

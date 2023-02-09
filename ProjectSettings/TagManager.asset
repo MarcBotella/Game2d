@@ -11,6 +11,7 @@ TagManager:
   - limit
   - Cartel
   - Castillo
+  - TextoJadis
   layers:
   - Default
   - TransparentFX
