@@ -42,6 +42,7 @@ public class HeroKnight : MonoBehaviour {
     public TextMeshProUGUI TextMeshProUGUI; 
     public Image cartel;
     public Image textoJadis;
+    bool hafinalizado = false;
 
     // Use this for initialization
     void Start ()
@@ -166,6 +167,14 @@ public class HeroKnight : MonoBehaviour {
                 if(m_delayToIdle < 0)
                     m_animator.SetInteger("AnimState", 0);
         }
+
+        if(!hafinalizado){
+            textoJadis.gameObject.SetActive(false);
+        }else{
+            textoJadis.gameObject.SetActive(true);
+        }
+        
+
     }
 
     void OnTriggerEnter2D(Collider2D other)
@@ -216,7 +225,12 @@ public class HeroKnight : MonoBehaviour {
 
         if (other.CompareTag("TextoJadis")){
             print("TextoJadis");
-            textoJadis.gameObject.SetActive(true);
+            hafinalizado = true;
+            //textoJadis.gameObject.SetActive(true);
+        }
+
+        if (other.CompareTag("Final")){
+           SceneManager.LoadScene("WinMenu");
         }
 
     }
@@ -235,7 +249,8 @@ public class HeroKnight : MonoBehaviour {
 
         if (other.CompareTag("TextoJadis")){
             print("TextoJadis");
-            textoJadis.gameObject.SetActive(false);
+            hafinalizado =false;
+            //textoJadis.gameObject.SetActive(false);
         }
     }
 

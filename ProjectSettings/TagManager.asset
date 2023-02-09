@@ -12,6 +12,7 @@ TagManager:
   - Cartel
   - Castillo
   - TextoJadis
+  - Final
   layers:
   - Default
   - TransparentFX
