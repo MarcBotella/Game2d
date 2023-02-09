@@ -200,6 +200,7 @@ public class HeroKnight : MonoBehaviour {
         {
             animatorCofre.Play("Open");    
             animatorCofre.SetBool("Open",true);
+            GameManager.life = 100;
         }   
 
         if (other.CompareTag("key")){
