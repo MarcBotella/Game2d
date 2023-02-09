@@ -10,6 +10,7 @@ public class Enemy : MonoBehaviour
     private float nextAttackTime;
     public Animator m_animator;
     private Collider m_collider;
+    public AudioSource AudioSource;
     
 
     private void Update()

@@ -42,8 +42,6 @@ public class HeroKnight : MonoBehaviour {
     public TextMeshProUGUI TextMeshProUGUI; 
     public Image cartel;
     public Image textoJadis;
-    bool hafinalizado = false;
-    bool haGanado = false;
 
     // Use this for initialization
     void Start ()
@@ -51,6 +49,7 @@ public class HeroKnight : MonoBehaviour {
         m_animator = GetComponent<Animator>();
         m_body2d = GetComponent<Rigidbody2D>();
         cartel.gameObject.SetActive(false);
+        textoJadis.gameObject.SetActive(false);
         m_groundSensor = transform.Find("GroundSensor").GetComponent<Sensor_HeroKnight>();
         m_wallSensorR1 = transform.Find("WallSensor_R1").GetComponent<Sensor_HeroKnight>();
         m_wallSensorR2 = transform.Find("WallSensor_R2").GetComponent<Sensor_HeroKnight>();
@@ -188,7 +187,12 @@ public class HeroKnight : MonoBehaviour {
         }   
 
         if (other.CompareTag("key")){
-            Destroy(GameObject.Find("key"));
+
+            GameObject key = GameObject.Find("key");
+            AudioSource audioKey = key.GetComponent<AudioSource>();
+            audioKey.Play();
+
+            Destroy(key);
             GameManager.key = 1;
 
             TextMeshProUGUI.text = "1/1";
@@ -212,7 +216,7 @@ public class HeroKnight : MonoBehaviour {
 
         if (other.CompareTag("TextoJadis")){
             print("TextoJadis");
-            hafinalizado = true;
+            textoJadis.gameObject.SetActive(true);
         }
 
     }
@@ -227,6 +231,11 @@ public class HeroKnight : MonoBehaviour {
         if (other.CompareTag("Cartel")){
             print("Cartel");
             cartel.gameObject.SetActive(false);
+        }
+
+        if (other.CompareTag("TextoJadis")){
+            print("TextoJadis");
+            textoJadis.gameObject.SetActive(false);
         }
     }
 
