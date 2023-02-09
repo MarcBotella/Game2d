@@ -12,7 +12,7 @@ Para ello debera superar a los basallos de Jadis
 
 # Video Demostracion
 
-Link : https://youtu.be/aPIVNPXciGo
+Link : https://youtu.be/DcYrtvEK3zw
 
 # Problemas
  - Los controles de los botones
