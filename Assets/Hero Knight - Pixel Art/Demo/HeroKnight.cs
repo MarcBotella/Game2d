@@ -218,6 +218,12 @@ public class HeroKnight : MonoBehaviour {
             print("Cartel");
             cartel.gameObject.SetActive(true);
         }
+
+
+         if (other.CompareTag("Castillo")){
+            print("Castillo");
+            SceneManager.LoadScene("BossFinal");
+        }
     }
 
     void OnTriggerExit2D(Collider2D other)
