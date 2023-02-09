@@ -43,6 +43,10 @@ public class HeroKnight : MonoBehaviour {
     public Image cartel;
     public Image textoJadis;
     bool hafinalizado = false;
+    public AudioSource audioJump;
+    public AudioSource audioSwort;
+    public AudioSource audioKey;
+    public AudioSource audioCofre;
 
     // Use this for initialization
     void Start ()
@@ -126,6 +130,7 @@ public class HeroKnight : MonoBehaviour {
             if (m_timeSinceAttack > 1.0f)
                 m_currentAttack = 1;
 
+            audioSwort.Play();
             m_animator.SetTrigger("Attack" + m_currentAttack);
             
             
@@ -145,6 +150,7 @@ public class HeroKnight : MonoBehaviour {
         else if (Input.GetKeyDown("space") && m_grounded && !m_rolling && Mathf.Abs(m_body2d.velocity.y) < 0.01f)
         {
             m_grounded = false;
+            audioJump.Play();
             m_animator.SetTrigger("Jump");
             m_animator.SetBool("Grounded", m_grounded);
             m_body2d.velocity = new Vector2(m_body2d.velocity.x, m_jumpForce);
@@ -192,13 +198,13 @@ public class HeroKnight : MonoBehaviour {
         {
             animatorCofre.Play("Open");    
             animatorCofre.SetBool("Open",true);
+            audioCofre.Play();
             GameManager.life = 100;
         }   
 
         if (other.CompareTag("key")){
 
             GameObject key = GameObject.Find("key");
-            AudioSource audioKey = key.GetComponent<AudioSource>();
             audioKey.Play();
 
             Destroy(key);
