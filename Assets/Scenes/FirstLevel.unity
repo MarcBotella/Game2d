@@ -10856,6 +10856,7 @@ MonoBehaviour:
     m_Bits: 0
   TextMeshProUGUI: {fileID: 0}
   cartel: {fileID: 0}
+  textoJadis: {fileID: 0}
 --- !u!114 &557597068
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -26258,6 +26259,7 @@ MonoBehaviour:
     m_Bits: 0
   TextMeshProUGUI: {fileID: 0}
   cartel: {fileID: 0}
+  textoJadis: {fileID: 0}
 --- !u!1 &1948798583
 GameObject:
   m_ObjectHideFlags: 0
@@ -26365,6 +26367,7 @@ MonoBehaviour:
     m_Bits: 0
   TextMeshProUGUI: {fileID: 0}
   cartel: {fileID: 0}
+  textoJadis: {fileID: 0}
 --- !u!114 &1948798588
 MonoBehaviour:
   m_ObjectHideFlags: 0
