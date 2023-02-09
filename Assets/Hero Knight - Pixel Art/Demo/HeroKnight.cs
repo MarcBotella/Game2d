@@ -126,7 +126,7 @@ public class HeroKnight : MonoBehaviour {
             m_animator.SetTrigger("Attack" + m_currentAttack);
             
             
-            Collider2D[] hitPlayers = Physics2D.OverlapCircleAll(transform.position, attackRadius, playerLayer);
+            Collider2D[] hitPlayers = Physics2D.OverlapCircleAll(transform.position +  new Vector3(2f,2f,0), attackRadius, playerLayer);
             foreach (Collider2D player in hitPlayers)
             {
                 player.GetComponent<Enemy>().TakeDamage(attackDamage);
@@ -271,6 +271,6 @@ public class HeroKnight : MonoBehaviour {
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, attackRadius);
+        Gizmos.DrawWireSphere(transform.position + new Vector3(2f,2f,0), attackRadius);
     }
 }
