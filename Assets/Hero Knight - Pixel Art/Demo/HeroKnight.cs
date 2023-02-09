@@ -224,6 +224,7 @@ public class HeroKnight : MonoBehaviour {
         if (other.CompareTag("limit")){
             print("NextLevel");
             SceneManager.LoadScene("FirstLevel");
+            GameManager.life = 100;
         }
 
         if (other.CompareTag("Cartel")){

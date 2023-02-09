@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Enemy : MonoBehaviour
 {
@@ -24,6 +25,9 @@ public class Enemy : MonoBehaviour
                     nextAttackTime = Time.time + attackDelay;
                     break;
                 }
+            }else{
+                SceneManager.LoadScene("FirstLevel");
+                GameManager.life = 100;
             }
             
         }
